@@ -1,0 +1,14 @@
+FROM envygeeks/alpine
+MAINTAINER "Brady Vitrano <brady.vitrano@rackspace.com>"
+COPY files/app/ /
+RUN apk --update add python python-dev py-pip py-gunicorn git && \
+                     mkdir -p /home/falcon && \
+                     addgroup -Sg 1000 falcon &&  \
+                     adduser  -SG falcon -u 1000 -h /home/falcon falcon && \
+                     chown falcon:falcon /home/falcon && \
+                     mkdir -p /src/app && \
+                     chown falcon:falcon /src/app && \
+                     echo 'falcon ALL=NOPASSWD:ALL' >> /etc/sudoers && \
+                     docker-helper cleanup
+WORKDIR /src/app/insights
+EXPOSE 80

@@ -1,0 +1,18 @@
+elasticsearch:
+  image: elasticsearch
+  ports:
+  - "9200"
+kibana:
+  image: kibana
+  ports:
+  - "5601"
+  links:
+    - elasticsearch
+app:
+  build: ./dockerfiles
+  dockerfile: App
+  ports:
+  - "80"
+  links:
+    - elasticsearch
+  command: gunicorn -b :80 --max-requests 1 app

@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+cd /src/app
+if [ ! -d "insights" ]; then
+  git clone git@github.com:rackerlabs/insights.git
+fi
+
+cd insights
+git pull origin master || true
+pip install -r requirements/development.txt
+# clear existing .pyc files
+find . -name '*.pyc' -delete
