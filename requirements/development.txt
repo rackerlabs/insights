@@ -2,4 +2,4 @@
 -r base.txt
 
 fake-factory==0.4.2
-requests==2.4.3
+requests==2.31.0
